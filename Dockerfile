@@ -23,7 +23,7 @@ WORKDIR /app
 COPY .  .
 
 # Copying files from development
-COPY --from=development /app/node_modules ./app/node_modules
+COPY --from=development /app/node_modules ./node_modules
 
 # Exposing Port
 EXPOSE 3000
