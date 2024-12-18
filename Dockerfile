@@ -1,19 +1,34 @@
-# Stage-1
+# Stage-1 Install Dependencies
 
-FROM node:latest AS previousImg
+FROM node:23 AS development
 
+# Setting working directory
 WORKDIR /app
 
-COPY . .
+# Copying package.json and package-lock.json
+COPY package*.json .
 
+# Installing dependencies
 RUN npm install
 
-# Stage-2
+# Copying the entire project
+COPY .  .
 
-FROM node:slim
+# Stage-2 Runtime environment for react
 
+FROM node:23-alpine
+
+# Setup working directory
 WORKDIR /app
 
-COPY --from=previousImg /usr/local/lib/node:latest/site-packages/ /usr/local/lib/node:latest/site-packages/
+# Copying files from development
+COPY --from=development /app/node_modules ./app/node_modules
 
-COPY --from=previousImg /app /app
+# Exposing Port
+EXPOSE 3000
+
+#Entry Point
+ENTRYPOINT [ "npm" ]
+
+#CMD to run React project
+CMD [ "start" ]
