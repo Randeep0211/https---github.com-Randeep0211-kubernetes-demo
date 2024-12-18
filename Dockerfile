@@ -2,11 +2,11 @@
 
 FROM node:23 AS development
 
-# Setting working directory
+# Setting working directorys
 WORKDIR /app
 
 # Copying package.json and package-lock.json
-COPY package*.json .
+COPY package*.json ./ 
 
 # Installing dependencies
 RUN npm install
