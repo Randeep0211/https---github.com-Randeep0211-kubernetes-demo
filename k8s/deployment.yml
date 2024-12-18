@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-app-deployment
+  namespace: node-app
+  labels:
+    app: react-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: react-app
+  template:
+    metadata:
+      namespace: node-app
+      labels:
+        app: react-app
+    spec:
+      containers:
+        - name: react-app-container
+          image: kube-react:latest
+          ports:
+            - containerPort: 3000
