@@ -11,8 +11,6 @@ COPY package*.json ./
 # Installing dependencies
 RUN npm install
 
-# Copying the entire project
-COPY .  .
 
 # Stage-2 Runtime environment for react
 
@@ -20,6 +18,9 @@ FROM node:23-alpine
 
 # Setup working directory
 WORKDIR /app
+
+# Copying the entire project
+COPY .  .
 
 # Copying files from development
 COPY --from=development /app/node_modules ./app/node_modules
